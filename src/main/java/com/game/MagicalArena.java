@@ -18,6 +18,9 @@ public class MagicalArena {
     }
 
     public void playMatch() {
+        if(player1.getHealth() <= 0 && player2.getHealth() <= 0){
+            LOGGER.info("Game not possible. Initial health of the player is not proper!");
+        }
         Player attacker = getAttacker();
         Player defender = getDefender();
         int round = 0;
@@ -44,10 +47,19 @@ public class MagicalArena {
 
         }
 
+        if(getWinner() != null){
+            LOGGER.info(getWinner().getName() + " won the game!");
+        }
+    }
+
+    public Player getWinner() {
         if (player1.getHealth() <= 0) {
-            LOGGER.info(player2.getName() + " wins!");
+            if(player2.getHealth() <= 0){
+                return null;
+            }
+           return player2;
         } else {
-            LOGGER.info(player1.getName() + " wins!");
+            return player1;
         }
     }
 
