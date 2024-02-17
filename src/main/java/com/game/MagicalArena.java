@@ -18,13 +18,16 @@ public class MagicalArena {
     }
 
     public void playMatch() {
-        if(player1.getHealth() <= 0 && player2.getHealth() <= 0){
+
+
+
+        if(player1.getHealth() <= 0 || player2.getHealth() <= 0){
             LOGGER.info("Game not possible. Initial health of the player is not proper!");
         }
         Player attacker = getAttacker();
         Player defender = getDefender();
         int round = 0;
-        while (canPlay()) {
+        while (canPlay()) { // both players health should be positive
             round++;
             int attackerRollValue = rollDice();
             int defenderRollValue = rollDice();
@@ -32,7 +35,7 @@ public class MagicalArena {
             int damageByAttacker = attackerRollValue * attacker.getAttack();
             int defendedDamage = defenderRollValue * defender.getStrength();
 
-            int currentDamage = Math.max(damageByAttacker - defendedDamage, 0);
+            int currentDamage = Math.max(damageByAttacker - defendedDamage, 0);  // if damageByAttacker < defendedDamage, then currentDamage received by defender will be 0.
             defender.setHealth(currentHealth(currentDamage, defender.getHealth()));
 
             LOGGER.info("Attacker " + attacker.getName() + " attacks to defender " + defender.getName() +
@@ -78,7 +81,8 @@ public class MagicalArena {
         return player1;
     }
 
-    private boolean canPlay() {
+    public boolean canPlay() {
+
         return player1.getHealth() > 0 && player2.getHealth() > 0;
     }
 
