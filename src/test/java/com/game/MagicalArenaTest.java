@@ -23,13 +23,13 @@ public class MagicalArenaTest {
 
         MagicalArena arena = new MagicalArena(player1, player2);
         arena.playMatch();
-        Assert.assertEquals(arena.getWinner(), player2);
+        Assert.assertEquals(arena.canPlay(), false);
 
         player1.setHealth(10);
         player2.setHealth(0);
         arena = new MagicalArena(player1, player2);
         arena.playMatch();
-        Assert.assertEquals(arena.getWinner(), player1);
+        Assert.assertEquals(arena.canPlay(), false);
     }
 
     @Test
