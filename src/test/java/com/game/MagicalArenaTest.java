@@ -31,4 +31,31 @@ public class MagicalArenaTest {
         arena.playMatch();
         Assert.assertEquals(arena.getWinner(), player1);
     }
+
+    @Test
+    public void testGameWithNegativeHealth(){
+        Player player1 = new Player(1, "Player1", -20, 5, 10);
+        Player player2 = new Player(2, "Player2", 10, 10, 5);
+
+        MagicalArena arena = new MagicalArena(player1, player2);
+        arena.playMatch();
+        Assert.assertEquals(arena.canPlay(), false);
+
+        player1.setHealth(-10);
+        player2.setHealth(50);
+        arena = new MagicalArena(player1, player2);
+        arena.playMatch();
+        Assert.assertEquals(arena.canPlay(), false);
+    }
+
+    @Test
+    public void testGameBothPlayerNegativeHealth(){
+        Player player1 = new Player(1, "Player1", -10, 5, 10);
+        Player player2 = new Player(2, "Player2", -5, 10, 5);
+
+        MagicalArena arena = new MagicalArena(player1, player2);
+        arena.playMatch();
+        Assert.assertEquals(arena.canPlay(), false);
+
+    }
 }
