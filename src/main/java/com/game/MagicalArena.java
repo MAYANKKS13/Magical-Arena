@@ -10,6 +10,8 @@ public class MagicalArena {
     private final Player player1;
     private final Player player2;
 
+    final int DICE_FACE_VALUE = 6;
+
     public MagicalArena(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -69,9 +71,8 @@ public class MagicalArena {
     }
 
     private int rollDice() {
-        Random rand = new Random();
-        return rand.nextInt(6) + 1;
-//        return 6;
+        Random random = new Random();
+        return random.nextInt(DICE_FACE_VALUE) + 1;
     }
 
     private int currentHealth(int damage, int health) {
