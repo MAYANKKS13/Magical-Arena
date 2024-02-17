@@ -7,8 +7,8 @@ public class MagicalArena {
 
     private static final Logger LOGGER = Logger.getLogger(MagicalArena.class.getName());
 
-    private Player player1;
-    private Player player2;
+    private final Player player1;
+    private final Player player2;
 
     public MagicalArena(Player player1, Player player2) {
         this.player1 = player1;
