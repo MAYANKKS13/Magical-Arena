@@ -18,11 +18,9 @@ public class MagicalArena {
     }
 
     public void playMatch() {
-
-
-
         if(player1.getHealth() <= 0 || player2.getHealth() <= 0){
             LOGGER.info("Game not possible. Initial health of the player is not proper!");
+            return;
         }
         Player attacker = getAttacker();
         Player defender = getDefender();
