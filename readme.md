@@ -21,19 +21,8 @@ Attack damage is 4 * 5 = 20 ; Defending strength = 5 * 3 = 15 ; Player A health 
 And so on
 ```
 
-#### Rules of the Game:
+### How to Run the code
 ```
-You can use Java, Go or Node.js to implement the solution, without using any third-party libraries
-or frameworks ( common and essential helper libs and packages are allowed ex. math.rand() is ok.
-
-The code should NOT be hosted on GitHub or made public. Create a zip of the folder with local
-git history  and you should provide us with the zip
-
-You should provide a README file in the repository that explains how to run the code and any other
-relevant information.
-
-You should provide unit tests for your solution.
-
-We expect you to commit frequently with relevant commit messages. Multiple incremental commits
-are valued over one all-inclusive commit.
+ - Run main method of PlayGame Class.
+ - Unit Test case covered in MagicalArenaTest class using junit.
 ```
