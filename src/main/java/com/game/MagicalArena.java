@@ -11,6 +11,7 @@ public class MagicalArena {
     private final Player player2;
 
     final int DICE_FACE_VALUE = 6;
+    final int CRITICAL_ATTACK = 15;
 
     public MagicalArena(Player player1, Player player2) {
         this.player1 = player1;
@@ -27,17 +28,29 @@ public class MagicalArena {
         int round = 0;
         while (canPlay()) { // both players health should be positive
             round++;
-            int attackerRollValue = rollDice();
-            int defenderRollValue = rollDice();
+            int attackerRollValue = maxRollValue(3);
+            int defenderRollValue = maxRollValue(3);
 
-            int damageByAttacker = attackerRollValue * attacker.getAttack();
-            int defendedDamage = defenderRollValue * defender.getStrength();
+            int attackValue, damageValue, overAllDamage;
 
-            int currentDamage = Math.max(damageByAttacker - defendedDamage, 0);  // if damageByAttacker < defendedDamage, then currentDamage received by defender will be 0.
-            defender.setHealth(currentHealth(currentDamage, defender.getHealth()));
+            if(criticalHit()){
+                attackValue = attacker.getAttack()*attackerRollValue;
+                overAllDamage = attackValue;
+
+                defender.setHealth(currentHealth(overAllDamage, defender.getHealth()));
+            }
+
+            else {
+            attackValue = attackerRollValue * attacker.getAttack();
+            damageValue= defenderRollValue * defender.getStrength();
+
+                overAllDamage = Math.max(attackValue - damageValue, 0);  // if damageByAttacker < defendedDamage, then currentDamage received by defender will be 0.
+                defender.setHealth(currentHealth(overAllDamage, defender.getHealth()));
+
+            }
 
             LOGGER.info("Attacker " + attacker.getName() + " attacks to defender " + defender.getName() +
-                    " with " + currentDamage + " damage in round " + round);
+                    " with " + overAllDamage + " damage in round " + round);
             LOGGER.info("After round " + round + " Player: " + attacker.getName() + " health: " +
                     attacker.getHealth() + " and Player: " + defender.getName() + " health: " + defender.getHealth());
 
@@ -95,5 +108,26 @@ public class MagicalArena {
             health = 0;
         }
         return health;
+    }
+
+    private int maxRollValue(int n){
+        int max = 0;
+        for(int i = 1; i <= n; i++) {
+            max = Math.max(rollDice(), max);
+        }
+        return max;
+    }
+
+    private boolean criticalHit(){
+        Random randomm = new Random();
+        double randomCritical = randomm.nextDouble();
+        for(int j = 1; j <= CRITICAL_ATTACK; j++){
+            if(randomCritical > CRITICAL_ATTACK ){
+                return true;
+            }
+        }
+
+        return false;
+
     }
 }
